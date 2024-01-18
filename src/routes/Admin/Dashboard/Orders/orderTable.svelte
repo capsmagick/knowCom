@@ -36,7 +36,7 @@
         {
           id: "m5gr84i9",
           order: "Boat Watch",
-          date_added: "12/12/2023",
+          date_added: "24/10/2023",
           customer: "Leo",
           sales_channel: "Sales channel",
           total: 999,
@@ -85,9 +85,6 @@
           accessor: "order",
           header: "Order",
           plugins: {
-            sort: {
-                disable: true
-            },
             filter: {
                 exclude: true
             }
@@ -222,7 +219,12 @@
                               <div class="text-right">
                                   <Render of={cell.render()} />
                               </div>
-                              {:else if cell.id === "customer"}
+                              {:else if cell.id === "order" }
+                              <Button variant="ghost" on:click={props.sort.toggle}>
+                                <Render of={cell.render()} />
+                                <CaretSort class={"ml-2 h-4 w-4"} />
+                              </Button>
+                              {:else if cell.id === "customer" }
                               <Button variant="ghost" on:click={props.sort.toggle}>
                                 <Render of={cell.render()} />
                                 <CaretSort class={"ml-2 h-4 w-4"} />

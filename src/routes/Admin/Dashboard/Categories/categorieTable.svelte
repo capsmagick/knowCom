@@ -10,127 +10,31 @@
     import { ChevronDown, CaretSort } from "radix-icons-svelte";
     import { Input } from "$lib/components/ui/input";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
-	import { Root } from "postcss";
     import DataTableCheckbox from "./categorieCheckbox.svelte";
 
       type Payment = {
         id: string;
-        amount: number;
+        Category_Image: string;
+        Category_Name: string;
+        Parent_category: string;
         status: "pending" | "processing" | "success" | "failed";
-        email: string;
       };
       const data: Payment[] = [
         {
           id: "m5gr84i9",
-          amount: 316,
-          status: "success",
-          email: "ken99@yahoo.com"
+          Category_Image: "url",
+          Category_Name: "Mobile",
+          Parent_category: "Electronics",
+          status: "success"
         },
         {
           id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 500,
-          status: "success",
-          email: "ben99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
-        },
-        {
-          id: "m5gr84i9",
-          amount: 400,
-          status: "failed",
-          email: "aen99@yahoo.com"
+          Category_Image: "url",
+          Category_Name: "Laptop",
+          Parent_category: "Electronics",
+          status: "success"
         }
-      ];
-
-      
+      ];     
     
     const table = createTable(readable(data), {
         page: addPagination(),
@@ -181,27 +85,32 @@
           }
         }),
         table.column({
-          accessor: "email",
-          header: "Email"
-        }),
-        table.column({
-          accessor: "amount",
-          header: "Amount",
-          cell: ({ value }) => {
-            const formatted = new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD"
-            }).format(value);
-            return formatted;
-        },
-        plugins: {
+          accessor: "Category_Image",
+          header: "Category_Image",
+          plugins: {
             sort: {
                 disable: true
             },
             filter: {
                 exclude: true
             }
-        }
+          }
+        }),
+        table.column({
+          accessor: "Category_Name",
+          header: "Category Name"
+        }),
+        table.column({
+          accessor: "Parent_category",
+          header: "Parent_category",
+          plugins: {
+            sort: {
+                disable: true
+            },
+            filter: {
+                exclude: true
+            }
+          }
         }),
         table.column({
           accessor: ({ id }) => id,
@@ -268,7 +177,7 @@
                               <div class="text-right">
                                   <Render of={cell.render()} />
                               </div>
-                              {:else if cell.id === "email"}
+                              {:else if cell.id === "Category_Name"}
                               <Button variant="ghost" on:click={props.sort.toggle}>
                                 <Render of={cell.render()} />
                                 <CaretSort class={"ml-2 h-4 w-4"} />

@@ -32,6 +32,11 @@ export const data = [
 				title: 'Orders',
 				icon: Cube,
 				link: '/Admin/Dashboard/Orders'
+			},
+			{
+				title: 'Customers',
+				icon: Cube,
+				link: '/Admin/Dashboard/Customers'
 			}
 		]
 	},

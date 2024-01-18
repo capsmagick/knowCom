@@ -12,7 +12,7 @@
 
 <div class="md:pl-6">
 	{#each data as { section, content } (section)}
-		<ul class="border-b py-2 last:border-none">
+		<ul class="border-b last:border-none">
 			{#each content as item (item.title)}
 				<li>
 					<a

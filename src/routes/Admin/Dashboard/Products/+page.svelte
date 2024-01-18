@@ -3,6 +3,7 @@
     import { Button } from "$lib/components/ui/button";
     import { Plus } from "radix-icons-svelte";
     import { goto } from '$app/navigation';
+    import ProductTable from "./ProductTable.svelte";
     
     export let data: PageData;
    
@@ -15,3 +16,6 @@
     <Plus class="mr-2 h-4 w-4" />
     Create New
 </Button>
+<div class="container mx-auto py-10">
+  <ProductTable />
+</div>

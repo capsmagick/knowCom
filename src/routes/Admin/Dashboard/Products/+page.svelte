@@ -10,12 +10,14 @@
 
 </script>
 
-<p>Products</p>
-  
+<div class="flex items-center justify-between">
+  <p>Products</p>
   <Button variant="outline" on:click={() => goto("/Admin/Dashboard/NewProduct")}>
     <Plus class="mr-2 h-4 w-4" />
     Create New
-</Button>
+  </Button>
+</div>
+  
 <div class="container mx-auto py-10">
   <ProductTable />
 </div>

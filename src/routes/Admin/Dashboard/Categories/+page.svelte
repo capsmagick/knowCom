@@ -6,11 +6,14 @@
     import DataTable from "./categorieTable.svelte";
     export let data: PageData;
   </script>
-  <p>Categories</p>
-  <Button variant="outline" on:click={() => goto("/Admin/Dashboard/NewCategories")}>
-    <Plus class="mr-2 h-4 w-4" />
-    Add Category
-  </Button>
+  
+  <div class="flex items-center justify-between">
+    <p>Categories</p>
+    <Button variant="outline" on:click={() => goto("/Admin/Dashboard/NewCategories")}>
+      <Plus class="mr-2 h-4 w-4" />
+      Add Category
+    </Button>
+  </div>
   <div class="container mx-auto py-10">
     <DataTable />
   </div>

@@ -146,9 +146,10 @@
     
     <div>
         <div class="flex items-center py-4">
+          <div class="flex items-center">
             <Input class="max-w-sm" placeholder="Filter emails..." type="text" bind:value={$filterValue}/>
-        </div>
-        <DropdownMenu.Root>
+          </div>
+          <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild let:builder>
                 <Button variant="outline" class="ml-auto" builders={[builder]}>
                   Columns <ChevronDown class="ml-2 h-4 w-4" />
@@ -164,6 +165,7 @@
                 {/each}
               </DropdownMenu.Content>
         </DropdownMenu.Root>
+        </div>
         <div class="rounded-md border">
             <Table.Root {...$tableAttrs}>
               <Table.Header>

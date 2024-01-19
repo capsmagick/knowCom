@@ -5,34 +5,43 @@
     from "svelte-headless-table/plugins";
     import { readable } from "svelte/store";
     import * as Table from "$lib/components/ui/table";
-    import DataTableActions from "./categorieActions.svelte";
+    import DataTableActions from "./orderActions.svelte";
     import { Button } from "$lib/components/ui/button";
     import { ChevronDown, CaretSort } from "radix-icons-svelte";
     import { Input } from "$lib/components/ui/input";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
-    import DataTableCheckbox from "./categorieCheckbox.svelte";
+    import DataTableCheckbox from "./orderCheckbox.svelte";
 
       type Payment = {
         id: string;
-        Category_Image: string;
-        Category_Name: string;
-        Parent_category: string;
-        status: "pending" | "processing" | "success" | "failed";
+        order: string;
+        date_added: string;
+        customer: string;
+        sales_channel: string;
+        total: number;
+        fulfillment: "pending" | "processing" | "success" | "failed";
+        payment_status: "pending" | "processing" | "success" | "failed";
       };
       const data: Payment[] = [
         {
           id: "m5gr84i9",
-          Category_Image: "url",
-          Category_Name: "Mobile",
-          Parent_category: "Electronics",
-          status: "success"
+          order: "Samsung Mobile",
+          date_added: "12/12/2023",
+          customer: "Kiran",
+          sales_channel: "Sales Channel",
+          total: 1000,
+          fulfillment: "success",
+          payment_status: "success"
         },
         {
           id: "m5gr84i9",
-          Category_Image: "url",
-          Category_Name: "Laptop",
-          Parent_category: "Electronics",
-          status: "success"
+          order: "Boat Watch",
+          date_added: "24/10/2023",
+          customer: "Leo",
+          sales_channel: "Sales channel",
+          total: 999,
+          fulfillment: "success",
+          payment_status: "success"
         }
       ];     
     
@@ -73,8 +82,17 @@
           }
         }),
         table.column({
-          accessor: "status",
-          header: "Status",
+          accessor: "order",
+          header: "Order",
+          plugins: {
+            filter: {
+                exclude: true
+            }
+          }
+        }),
+        table.column({
+          accessor: "date_added",
+          header: "Date Added",
           plugins: {
             sort: {
                 disable: true
@@ -85,8 +103,12 @@
           }
         }),
         table.column({
-          accessor: "Category_Image",
-          header: "Category_Image",
+          accessor: "customer",
+          header: "Customer"
+        }),
+        table.column({
+          accessor: "fulfillment",
+          header: "Fullfillment",
           plugins: {
             sort: {
                 disable: true
@@ -97,12 +119,32 @@
           }
         }),
         table.column({
-          accessor: "Category_Name",
-          header: "Category Name"
+          accessor: "payment_status",
+          header: "Payment Status",
+          plugins: {
+            sort: {
+                disable: true
+            },
+            filter: {
+                exclude: true
+            }
+          }
         }),
         table.column({
-          accessor: "Parent_category",
-          header: "Parent_category",
+          accessor: "sales_channel",
+          header: "Sales Channel",
+          plugins: {
+            sort: {
+                disable: true
+            },
+            filter: {
+                exclude: true
+            }
+          }
+        }),
+        table.column({
+          accessor: "total",
+          header: "Total",
           plugins: {
             sort: {
                 disable: true
@@ -141,7 +183,7 @@
       .filter(([, hide]) => !hide)
       .map(([id]) => id);
 
-      const hidableCols = ["status", "email", "amount"];
+      const hidableCols = ["order", "date_added", "customer","fulfillment","payment_status", "sales_channel", "total"];
     </script>
     
     <div>
@@ -177,7 +219,12 @@
                               <div class="text-right">
                                   <Render of={cell.render()} />
                               </div>
-                              {:else if cell.id === "Category_Name"}
+                              {:else if cell.id === "order" }
+                              <Button variant="ghost" on:click={props.sort.toggle}>
+                                <Render of={cell.render()} />
+                                <CaretSort class={"ml-2 h-4 w-4"} />
+                              </Button>
+                              {:else if cell.id === "customer" }
                               <Button variant="ghost" on:click={props.sort.toggle}>
                                 <Render of={cell.render()} />
                                 <CaretSort class={"ml-2 h-4 w-4"} />

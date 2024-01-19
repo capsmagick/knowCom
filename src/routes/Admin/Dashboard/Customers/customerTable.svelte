@@ -5,34 +5,34 @@
     from "svelte-headless-table/plugins";
     import { readable } from "svelte/store";
     import * as Table from "$lib/components/ui/table";
-    import DataTableActions from "./categorieActions.svelte";
+    import DataTableActions from "./customerActions.svelte";
     import { Button } from "$lib/components/ui/button";
     import { ChevronDown, CaretSort } from "radix-icons-svelte";
     import { Input } from "$lib/components/ui/input";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
-    import DataTableCheckbox from "./categorieCheckbox.svelte";
+    import DataTableCheckbox from "./customerCheckbox.svelte";
 
       type Payment = {
         id: string;
-        Category_Image: string;
-        Category_Name: string;
-        Parent_category: string;
-        status: "pending" | "processing" | "success" | "failed";
+        date_added: string;
+        name: string;
+        orders: string;
+        email: string;
       };
       const data: Payment[] = [
         {
           id: "m5gr84i9",
-          Category_Image: "url",
-          Category_Name: "Mobile",
-          Parent_category: "Electronics",
-          status: "success"
+          date_added: "12/12/2023",
+          name: "Kiran",
+          orders: "Samsung Mobile",
+          email: "abs@demo.com"
         },
         {
           id: "m5gr84i9",
-          Category_Image: "url",
-          Category_Name: "Laptop",
-          Parent_category: "Electronics",
-          status: "success"
+          date_added: "24/10/2023",
+          name: "Leo",
+          orders: "Boat Watch",
+          email: "kdj@demo.com"
         }
       ];     
     
@@ -73,8 +73,8 @@
           }
         }),
         table.column({
-          accessor: "status",
-          header: "Status",
+          accessor: "date_added",
+          header: "Date Added",
           plugins: {
             sort: {
                 disable: true
@@ -85,28 +85,17 @@
           }
         }),
         table.column({
-          accessor: "Category_Image",
-          header: "Category_Image",
-          plugins: {
-            sort: {
-                disable: true
-            },
-            filter: {
-                exclude: true
-            }
-          }
+          accessor: "name",
+          header: "Name"
         }),
         table.column({
-          accessor: "Category_Name",
-          header: "Category Name"
+          accessor: "email",
+          header: "Email"
         }),
         table.column({
-          accessor: "Parent_category",
-          header: "Parent_category",
+          accessor: "orders",
+          header: "Orders",
           plugins: {
-            sort: {
-                disable: true
-            },
             filter: {
                 exclude: true
             }
@@ -141,12 +130,15 @@
       .filter(([, hide]) => !hide)
       .map(([id]) => id);
 
-      const hidableCols = ["status", "email", "amount"];
+      const hidableCols = ["date_added", "name", "email", "orders"];
     </script>
     
     <div>
         <div class="flex items-center py-4">
-            <Input class="max-w-sm" placeholder="Filter emails..." type="text" bind:value={$filterValue}/>
+            <Input class="max-w-sm" 
+            placeholder="Filter emails..." 
+            type="text" 
+            bind:value={$filterValue}/>
         </div>
         <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild let:builder>
@@ -177,7 +169,12 @@
                               <div class="text-right">
                                   <Render of={cell.render()} />
                               </div>
-                              {:else if cell.id === "Category_Name"}
+                              {:else if cell.id === "orders" }
+                              <Button variant="ghost" on:click={props.sort.toggle}>
+                                <Render of={cell.render()} />
+                                <CaretSort class={"ml-2 h-4 w-4"} />
+                              </Button>
+                              {:else if cell.id === "email" }
                               <Button variant="ghost" on:click={props.sort.toggle}>
                                 <Render of={cell.render()} />
                                 <CaretSort class={"ml-2 h-4 w-4"} />

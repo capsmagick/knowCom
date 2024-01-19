@@ -10,8 +10,7 @@
         variant="ghost"
         builders={[builder]}
         size="icon"
-        class="relative w-8 h-8 p-0"
-      >
+        class="relative w-8 h-8 p-0">
         <span class="sr-only">Open menu</span>
         <DotsVertical class="w-4 h-4" />
       </Button>

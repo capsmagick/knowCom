@@ -135,27 +135,29 @@
     
     <div>
         <div class="flex items-center py-4">
-            <Input class="max-w-sm" 
-            placeholder="Filter emails..." 
-            type="text" 
-            bind:value={$filterValue}/>
+            <div>
+              <Input class="max-w-sm" 
+              placeholder="Filter emails..." 
+              type="text" 
+              bind:value={$filterValue}/>
+            </div>
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger asChild let:builder>
+                  <Button variant="outline" class="ml-auto" builders={[builder]}>
+                    Columns <ChevronDown class="ml-2 h-4 w-4" />
+                  </Button>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content>
+                  {#each flatColumns as col}
+                    {#if hidableCols.includes(col.id)}
+                      <DropdownMenu.CheckboxItem bind:checked={hideForId[col.id]}>
+                        {col.header}
+                      </DropdownMenu.CheckboxItem>
+                    {/if}
+                  {/each}
+                </DropdownMenu.Content>
+          </DropdownMenu.Root>
         </div>
-        <DropdownMenu.Root>
-            <DropdownMenu.Trigger asChild let:builder>
-                <Button variant="outline" class="ml-auto" builders={[builder]}>
-                  Columns <ChevronDown class="ml-2 h-4 w-4" />
-                </Button>
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content>
-                {#each flatColumns as col}
-                  {#if hidableCols.includes(col.id)}
-                    <DropdownMenu.CheckboxItem bind:checked={hideForId[col.id]}>
-                      {col.header}
-                    </DropdownMenu.CheckboxItem>
-                  {/if}
-                {/each}
-              </DropdownMenu.Content>
-        </DropdownMenu.Root>
         <div class="rounded-md border">
             <Table.Root {...$tableAttrs}>
               <Table.Header>
